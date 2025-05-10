@@ -20,17 +20,5 @@ public class CountryRepository : RepositoryBase, ICountryRepository
             .ExecuteReaderAsync();
         
         return await DbUtils.MapListAsync(reader, SqlMapper.MapCountry);
-
-        // var result = new List<CountryDto>();
-        //
-        // while (await reader.ReadAsync())
-        // {
-        //     result.Add(new CountryDto
-        //     {
-        //         Name = reader.GetString(reader.GetOrdinal("Name"))
-        //     });
-        // }
-        //
-        // return result;
     }
 }

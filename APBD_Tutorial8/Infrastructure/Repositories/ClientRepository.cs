@@ -16,8 +16,6 @@ public class ClientRepository : RepositoryBase, IClientRepository
 
     public async Task<IEnumerable<ClientsTripDto>> GetClientsTripsByIdAsync(int id)
     {
-        //var trips = new List<ClientsTripDto>();
-
         await using var reader = await FluentSql
             .From(_connectionString)
             .WithSql(ClientSqlCommands.GetClientsTripsById)
@@ -25,25 +23,6 @@ public class ClientRepository : RepositoryBase, IClientRepository
             .ExecuteReaderAsync();
         
         return await DbUtils.MapListAsync(reader, SqlMapper.MapClientTrip);
-
-        // while (await reader.ReadAsync())
-        // {
-        //     trips.Add(new ClientsTripDto
-        //     {
-        //         Id = reader.GetInt32(reader.GetOrdinal("Id")),
-        //         Name = reader.GetString(reader.GetOrdinal("Name")),
-        //         Description = reader.GetString(reader.GetOrdinal("Description")),
-        //         DateFrom = reader.GetDateTime(reader.GetOrdinal("DateFrom")),
-        //         DateTo = reader.GetDateTime(reader.GetOrdinal("DateTo")),
-        //         MaxPeople = reader.GetInt32(reader.GetOrdinal("MaxPeople")),
-        //         RegisteredAt = reader.GetInt32(reader.GetOrdinal("RegisteredAt")),
-        //         PaymentDate = reader.IsDBNull(reader.GetOrdinal("PaymentDate"))
-        //             ? 0
-        //             : reader.GetInt32(reader.GetOrdinal("PaymentDate"))
-        //     });
-        // }
-
-        //return trips;
     }
 
     public async Task<int> CreateClient(CreateClientCommand command)
@@ -72,21 +51,6 @@ public class ClientRepository : RepositoryBase, IClientRepository
             .ExecuteReaderAsync();
 
         return await DbUtils.MapSingleAsync(reader, SqlMapper.MapClient);
-        
-        // if (await reader.ReadAsync())
-        // {
-        //     return new Client
-        //     {
-        //         Id = reader.GetInt32(reader.GetOrdinal("IdClient")),
-        //         FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
-        //         LastName = reader.GetString(reader.GetOrdinal("LastName")),
-        //         Email = reader.GetString(reader.GetOrdinal("Email")),
-        //         Phone = reader.GetString(reader.GetOrdinal("Telephone")),
-        //         Pesel = reader.GetString(reader.GetOrdinal("Pesel")),
-        //     };
-        // }
-        //
-        // return null;
     }
 
     public async Task RegisterClientToTrip(RegisterClientToTripDto registerClientToTripDto)
@@ -126,17 +90,5 @@ public class ClientRepository : RepositoryBase, IClientRepository
             .ExecuteReaderAsync();
 
         return await DbUtils.MapSingleAsync(reader, SqlMapper.MapRegisterClientToTrip);
-        
-        // if (await reader.ReadAsync())
-        // {
-        //     return new RegisterClientToTripDto
-        //     {
-        //         IdClient = reader.GetInt32(reader.GetOrdinal("IdClient")),
-        //         IdTrip = reader.GetInt32(reader.GetOrdinal("IdTrip")),
-        //         RegisteredAt = reader.GetInt32(reader.GetOrdinal("RegisteredAt"))
-        //     };
-        // }
-        //
-        // return null;
     }
 }

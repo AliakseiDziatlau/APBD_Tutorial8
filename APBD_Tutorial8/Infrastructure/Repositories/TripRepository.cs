@@ -21,23 +21,6 @@ public class TripRepository : RepositoryBase, ITripRepository
             .ExecuteReaderAsync();
 
         return await DbUtils.MapListAsync(reader, SqlMapper.MapTrip);
-        
-        // var result = new List<TripDto>();
-        //
-        // while (await reader.ReadAsync())
-        // {
-        //     result.Add(new TripDto
-        //     {
-        //         Id = reader.GetInt32(reader.GetOrdinal("Id")),
-        //         Name = reader.GetString(reader.GetOrdinal("Name")),
-        //         Description = reader.GetString(reader.GetOrdinal("Description")),
-        //         DateFrom = reader.GetDateTime(reader.GetOrdinal("DateFrom")),
-        //         DateTo = reader.GetDateTime(reader.GetOrdinal("DateTo")),
-        //         MaxPeople = reader.GetInt32(reader.GetOrdinal("MaxPeople"))
-        //     });
-        // }
-        //
-        // return result;
     }
 
     public async Task<Trip?> GetTripByIdAsync(int id)
@@ -49,20 +32,5 @@ public class TripRepository : RepositoryBase, ITripRepository
             .ExecuteReaderAsync();
 
         return await DbUtils.MapSingleAsync(reader, SqlMapper.MapTripEntity);
-        
-        // if (await reader.ReadAsync())
-        // {
-        //     return new Trip
-        //     {
-        //         Id = reader.GetInt32(reader.GetOrdinal("IdTrip")),
-        //         Name = reader.GetString(reader.GetOrdinal("Name")),
-        //         Description = reader.GetString(reader.GetOrdinal("Description")),
-        //         DateFrom = reader.GetDateTime(reader.GetOrdinal("DateFrom")),
-        //         DateTo = reader.GetDateTime(reader.GetOrdinal("DateTo")),
-        //         MaxPeople = reader.GetInt32(reader.GetOrdinal("MaxPeople"))
-        //     };
-        // }
-        //
-        // return null;
     }
 }
